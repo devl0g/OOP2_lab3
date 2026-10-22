@@ -26,7 +26,11 @@ void MainWindow::initUI() noexcept {
   shapesMenu = menuBar()->addMenu(tr("&Об'єкти"));
   menuBar()->addMenu(tr("&Довідка"));
 
+  shapesToolbar = new QToolBar("Об'єкти", this);
+  addToolBar(shapesToolbar);
+
   connect(shapesMenu, &QMenu::triggered, this, &MainWindow::shapeSelected);
+  connect(shapesToolbar, &QToolBar::actionTriggered, this, &MainWindow::shapeSelected);
 }
 
 void MainWindow::updateShapesMenu() noexcept {
@@ -47,6 +51,12 @@ void MainWindow::changeShape(uint8_t shapeID) {
       setWindowTitle(tr(newTitle.c_str()));
     }
   }
+
+  for (const auto& action : toolbarShapesButtons) {
+    action.second->setChecked(false);
+  }
+
+  toolbarShapesButtons.at(shapeID)->setChecked(true);
 }
 
 // Slots
