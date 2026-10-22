@@ -19,6 +19,7 @@ public:
   virtual void renderShape(QPainter& painter) const = 0;
   virtual void renderPhantomShape(QPainter& painter) const = 0;
   virtual void updateShapeConfig(const Position& dragStart, const Position& dragEnd) noexcept = 0;
+  virtual QIcon getToolbarIcon() noexcept = 0;
 };
 
 #endif

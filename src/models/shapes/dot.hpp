@@ -2,6 +2,7 @@
 #define INCLUDE_MODEL_SHAPES_DOT_HPP_
 
 #include "./shape.hpp"
+#include <qicon.h>
 
 class DotShape : public Shape {
 public:
@@ -49,6 +50,10 @@ public:
 
   void updateShapeConfig(const Position& drag_start, const Position& drag_end) noexcept override {
     this->position = drag_end;
+  }
+
+  QIcon getToolbarIcon() noexcept override {
+    return QIcon(":/icons/dot.png");
   }
 
 private:

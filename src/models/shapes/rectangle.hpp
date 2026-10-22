@@ -2,6 +2,7 @@
 #define INCLUDE_MODEL_SHAPES_RECTANGLE_HPP_
 
 #include "./shape.hpp"
+#include <qicon.h>
 #include <qnamespace.h>
 
 class RectangleShape : public Shape {
@@ -88,6 +89,10 @@ public:
   void updateShapeConfig(const Position& dragStart, const Position& dragEnd) noexcept override {
     this->centerPosition = dragStart;
     this->cornerPosition = dragEnd;
+  }
+
+  QIcon getToolbarIcon() noexcept override {
+    return QIcon(":/icons/rectangle.png");
   }
 
 private:

@@ -2,6 +2,7 @@
 #define INCLUDE_UI_WINDOWS_MAIN_WINDOW_HPP_
 
 #include <QMainWindow>
+#include <cstdint>
 #include "../components/shapesCanvas.hpp"
 
 class MainWindow : public QMainWindow {
@@ -25,6 +26,7 @@ private:
 
   void initUI() noexcept;
   void updateShapesMenu() noexcept;
+  void changeShape(uint8_t shapeID);
 
 signals:
 private slots:

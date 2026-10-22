@@ -2,6 +2,7 @@
 #define INCLUDE_MODEL_SHAPES_OVAL_HPP_
 
 #include "./shape.hpp"
+#include <qicon.h>
 
 class OvalShape : public Shape {
 public:
@@ -77,6 +78,10 @@ public:
   void updateShapeConfig(const Position& dragStart, const Position& dragEnd) noexcept override {
     this->startPosition = dragStart;
     this->endPosition = dragEnd;
+  }
+
+  QIcon getToolbarIcon() noexcept override {
+    return QIcon(":/icons/oval.png");
   }
 
 private:

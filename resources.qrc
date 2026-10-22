@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource prefix="/">
+    <file>icons/dot.png</file>
+    <file>icons/line.png</file>
+    <file>icons/oval.png</file>
+    <file>icons/rectangle.png</file>
+</qresource>
+</RCC>

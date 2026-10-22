@@ -38,17 +38,20 @@ void MainWindow::updateShapesMenu() noexcept {
   }
 }
 
-// Slots
-
-void MainWindow::shapeSelected(QAction* action) {
-  const int64_t data = action->data().toLongLong();
-  selectedShapeID = data;
-
+void MainWindow::changeShape(uint8_t shapeID) {
   for (const auto& shape : registeredShapes) {
-    if (shape->getShapeID() == data) {
+    if (shape->getShapeID() == shapeID) {
+      selectedShapeID = shapeID;
       canvas->setDrawingShape(std::move(shape->createInstance()));
       const auto newTitle = std::string("Обрано: ") + shape->getShapeName();
       setWindowTitle(tr(newTitle.c_str()));
     }
   }
+}
+
+// Slots
+
+void MainWindow::shapeSelected(QAction* action) {
+  const uint32_t data = action->data().toUInt();
+  changeShape(data);
 }
