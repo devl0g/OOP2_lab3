@@ -18,7 +18,7 @@ public:
   }
 
   [[nodiscard]] Position getCenterPosition() const {
-    return cornerPosition;
+    return centerPosition;
   }
 
   void setCenterPosition(Position position) {

@@ -46,7 +46,7 @@ void MainWindow::changeShape(uint8_t shapeID) {
   for (const auto& shape : registeredShapes) {
     if (shape->getShapeID() == shapeID) {
       selectedShapeID = shapeID;
-      canvas->setDrawingShape(std::move(shape->createInstance()));
+      canvas->setDrawingShape(shape->createInstance());
       const auto newTitle = std::string("Обрано: ") + shape->getShapeName();
       setWindowTitle(tr(newTitle.c_str()));
     }

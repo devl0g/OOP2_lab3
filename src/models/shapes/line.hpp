@@ -25,7 +25,7 @@ public:
   }
 
   [[nodiscard]] Position getEndPosition() const {
-    return startPosition;
+    return endPosition;
   }
 
   void setEndPosition(Position position) {
