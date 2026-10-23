@@ -1,0 +1,105 @@
+classDiagram
+  direction LR
+
+  class QMainWindow
+  class QWidget
+  class QAction
+  class QToolBar
+  class QMenu
+  class QIcon
+
+  class MainWindow {
+    -QMenu* shapesMenu
+    -QToolBar* shapesToolbar
+    -ShapesCanvas* canvas
+    -uint64_t selectedShapeID
+    -vector~unique_ptr~Shape~~ registeredShapes
+    -map~uint8_t, QAction*~ toolbarShapesButtons
+    -initUI()
+    -updateShapesMenu()
+    -changeShape(uint8_t shapeID)
+    -shapeSelected(QAction*)
+    +registerShape~T~()
+  }
+
+  class ShapesCanvas {
+    -unique_ptr~Shape~ currentShapeType
+    -unique_ptr~Shape~ drawingShape
+    -unique_ptr~Shape~ canvasShapes[MAX_CANVAS_SHAPES]
+    -uint64_t shapesCount
+    -MouseState mouseState
+    +setDrawingShape(unique_ptr~Shape~ shape)
+    #paintEvent(QPaintEvent*)
+    #mousePressEvent(QMouseEvent*)
+    #mouseMoveEvent(QMouseEvent*)
+    #mouseReleaseEvent(QMouseEvent*)
+  }
+
+  class MouseState {
+    <<struct>>
+    +bool isDragging
+    +int64_t dragStartX
+    +int64_t dragStartY
+    +int64_t dragEndX
+    +int64_t dragEndY
+  }
+
+  class Shape {
+    <<abstract>>
+    +getShapeName() char*
+    +getShapeID() uint8_t
+    +createInstance() unique_ptr~Shape~
+    +renderShape(QPainter&)
+    +renderPhantomShape(QPainter&)
+    +updateShapeConfig(dragStart, dragEnd)
+    +getToolbarIcon() QIcon
+  }
+
+  class DotShape {
+    -Position position
+    ID = 1
+  }
+
+  class LineShape {
+    -Position startPosition
+    -Position endPosition
+    ID = 2
+  }
+
+  class RectangleShape {
+    -Position centerPosition
+    -Position cornerPosition
+    ID = 3
+  }
+
+  class OvalShape {
+    -Position startPosition
+    -Position endPosition
+    ID = 4
+  }
+
+  class Position {
+    <<struct>>
+    +int64_t x
+    +int64_t y
+  }
+
+  QMainWindow <|-- MainWindow
+  QWidget <|-- ShapesCanvas
+
+  MainWindow *-- ShapesCanvas
+  MainWindow o-- QToolBar
+  MainWindow o-- QMenu
+  MainWindow *-- QAction : toolbar buttons
+  MainWindow *-- Shape : registeredShapes
+
+  ShapesCanvas *-- MouseState
+  ShapesCanvas *-- Shape : currentShapeType, drawingShape, canvasShapes
+
+  Shape <|-- DotShape
+  Shape <|-- LineShape
+  Shape <|-- RectangleShape
+  Shape <|-- OvalShape
+
+  Shape ..> Position
+  Shape ..> QIcon
